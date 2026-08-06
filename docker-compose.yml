@@ -1,0 +1,30 @@
+# We have to create 2 services one is for redis and other is for mongoDB
+
+services: # everything inside one container
+    redis: # service name
+        image: redis:7-alpine # it is bluprint that tells Docker to download redis version 7 alipne linux
+        container_name: learning_redis
+        ports:
+            - "6379:6379"  # syntax: HOST_PORT : CONTAINER_PORT we can also write "7000:6379" act as bridge between host machine and conatiner
+            # mere machine ke 6379 ko link kr do jo container chal ra hai 6379 se
+        # command array formate me he likhi jati hai
+        command: ["redis-server", "--appendonly", "yes"] # these tell redis whenever data changes write it in the log file
+        # container me jo bhi data rahta hai vo permanent nahi rahata hai lakin agar volumes mention kr dete hai toh rah jata ahi
+        volumes:
+            - redis-data:/data # these is the permanent storage even when we delete the container and then create the new container and use same volume then all the data is been retrived
+
+    mongo:
+        image: mongo:7
+        container_name: mongo
+        ports:
+            - "27017:27017"
+        environment:
+            MONGO_INITDB_DATABASE: redis_DB
+        volumes:
+            - mongo-data:/data/db
+
+volumes:
+    redis-data:
+    mongo-data:
+
+
