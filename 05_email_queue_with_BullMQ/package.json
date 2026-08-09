@@ -1,0 +1,17 @@
+{
+  "name": "05_email_queue_with_bullmq",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node src/app.js"
+  },
+  "dependencies": {
+    "bullmq": "^6.0.9",
+    "express": "^5.2.1",
+    "ioredis": "^6.0.0"
+  }
+}
