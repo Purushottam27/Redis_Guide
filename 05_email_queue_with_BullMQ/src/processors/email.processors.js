@@ -1,20 +1,20 @@
-const welcomeEmail = async(job) =>{
-    console.log(`${job.name} is processing.....`)
+import { sendPasswordResetEmail, sendWelcomeEmail } from "../services/email.service.js"
 
-    await new Promise((resolve, reject) => {
-        setTimeout(resolve,1500)
-    })
-}
+export async function processEmail(job){
 
-const passwordReset = async(job) =>{
-    console.log(`${job.name} is processing.....`)
+    switch(job.name){
+        case 'send-welcome-email':
+            return await sendWelcomeEmail(
+                job.data.to,
+                job.data.name
+            )
+        case 'send-password-reset-email':
+            return await sendPasswordResetEmail(
+                job.data.to,
+                // job.data.token  these we used when we create reset token in controller as we already stored token in job 
+            )
+        default:
+            throw new Error(`Unknown email: ${job.name}`);
+    }
 
-    await new Promise((resolve, reject) => {
-        setTimeout(resolve,1500)
-    })
-}
-
-export {
-    welcomeEmail,
-    passwordReset
 }

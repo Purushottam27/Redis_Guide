@@ -1,20 +1,13 @@
 import { Worker } from "bullmq";
 import { redisConnection } from "../connection/redis.connection";
-import { welcomeEmail } from "../processors/email.processors";
+import { processEmail } from "../processors/email.processors";
 
 const emailWorker = new Worker(
     'emails',
-    // async(job) =>{
-    //     console.log(`${job.name} is processing.....`)
-
-    //     await new Promise((resolve, reject) => {
-    //         setTimeout(resolve,1500)
-    //     })
-    // },
-    welcomeEmail,
+    processEmail,
     {
         connection:redisConnection,
-        concurrency:5,
+        concurrency:10,
     }
 )
 
