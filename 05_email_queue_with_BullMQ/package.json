@@ -7,12 +7,14 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "dev": "node src/app.js"
+    "dev": "node -r dotenv/config --experimental-json-modules src/app.js"
   },
   "dependencies": {
     "bullmq": "^6.0.9",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "ioredis": "^6.0.0",
-    "nodemailer": "^9.0.5"
+    "nodemailer": "^9.0.5",
+    "twilio": "^6.1.0"
   }
 }

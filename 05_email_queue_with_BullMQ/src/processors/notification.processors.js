@@ -1,13 +1,14 @@
+import { sendOtp } from "../services/notification.service.js";
+
 export async function processNotification(job) {
     switch (job.name) {
-        case 'streak-alert':
-            
-            break;
-        case 'potd-alert':
+        case 'send-otp':
+            return await sendOtp(job.data.phone,job.data.otp)
+        case 'send-notification-msg':
             
             break;
     
         default:
-            break;
+            throw new Error(`Unknown SMS: ${job.name}`);
     }
 }

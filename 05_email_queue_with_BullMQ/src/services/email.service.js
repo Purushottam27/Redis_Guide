@@ -23,12 +23,8 @@ export async function sendWelcomeEmail(email,name) {
     })
 }
 
-// these 3 things are done in the controller file of forgot password
-const resetToken = crypto.randomBytes(32).toString('hex')
-// store it in redis and then in the queue
-const resetLink = `${process.env.APP_URL}/reset-password/${resetToken}`
 
-export async function sendPasswordResetEmail(email) { // (email,resetLink)
+export async function sendPasswordResetEmail(email,resetLink) { // 
     const send = await transporter.sendMail({
         from: process.env.EMAIL_USER,
         to: email,
@@ -58,4 +54,5 @@ export async function sendPasswordResetEmail(email) { // (email,resetLink)
             </p>
         `
     }); 
+    // So when user click the reset link then the user is redirected to the resetLink url where we can first verify the user with the reset token and then show the new password and confirm password field after that when user clcik submit then it again redirect to the post route of same url which again verify the token first and then update the password in the DB. 
 }

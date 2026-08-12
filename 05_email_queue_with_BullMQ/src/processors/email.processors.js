@@ -11,7 +11,7 @@ export async function processEmail(job){
         case 'send-password-reset-email':
             return await sendPasswordResetEmail(
                 job.data.to,
-                // job.data.token  these we used when we create reset token in controller as we already stored token in job 
+                job.data.resetLink
             )
         default:
             throw new Error(`Unknown email: ${job.name}`);
